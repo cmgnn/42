@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_count_words.c                                   :+:      :+:    :+:   */
+/*   ft_btreeadd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fjacquem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/12/01 20:53:35 by fjacquem          #+#    #+#             */
-/*   Updated: 2015/12/01 20:53:37 by fjacquem         ###   ########.fr       */
+/*   Created: 2015/12/01 20:53:55 by fjacquem          #+#    #+#             */
+/*   Updated: 2015/12/01 20:53:57 by fjacquem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "btree.h"
 
-int		ft_count_words(char *str, char c)
+void	ft_btreeadd(unsigned int index, t_btree **root, t_btree *new)
 {
-	int i;
-
-	i = 0;
-	while (*str)
+	if (*root && index)
 	{
-		str = ft_strskip_char(str, c);
-		if (*str && *str != c)
-			i++;
-		str = ft_strskip_word(str, c);
-		str++;
+		if (index % 2)
+			ft_btreeadd(index / 2, &(*root)->left, new);
+		else
+			ft_btreeadd(index / 2, &(*root)->right, new);
 	}
-	return (i);
+	else
+		(*root) = new;
 }

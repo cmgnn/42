@@ -1,19 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pow.c                                           :+:      :+:    :+:   */
+/*   ft_btree.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fjacquem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/12/01 20:52:42 by fjacquem          #+#    #+#             */
-/*   Updated: 2015/12/01 20:52:43 by fjacquem         ###   ########.fr       */
+/*   Created: 2015/12/01 20:53:55 by fjacquem          #+#    #+#             */
+/*   Updated: 2015/12/01 20:53:57 by fjacquem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_pow(int nb, int pow)
+#ifndef BTREE_H
+# define BTREE_H
+# include "libft.h"
+# define AFFIX	2
+# define SUFFIX 4
+# define PREFIX	8
+
+typedef struct		s_btree
 {
-	if (pow == 0)
-		return (1);
-	else
-		return (nb * ft_pow(nb, pow - 1));
-}
+	void			*content;
+	size_t			content_size;
+
+	struct s_btree	*left;
+	struct s_btree	*right;
+}					t_btree;
+
+#endif

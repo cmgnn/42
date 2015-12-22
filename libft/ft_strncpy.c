@@ -14,5 +14,18 @@
 
 char	*ft_strncpy(char *dst, const char *src, size_t len)
 {
-	return ((char*)ft_memcpy((void*)dst, (const void*)src, len));
+	size_t		cur;
+
+	cur = 0;
+	while (src[cur] != '\0' && cur < len)
+	{
+		dst[cur] = src[cur];
+		cur++;
+	}
+	while (cur < len)
+	{
+		dst[cur] = '\0';
+		cur++;
+	}
+	return (dst);
 }

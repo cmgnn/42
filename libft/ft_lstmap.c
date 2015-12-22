@@ -14,21 +14,13 @@
 
 t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {
-	t_list *tmp;
 	t_list *begin;
 
-	tmp = (t_list*)ft_memalloc(sizeof(t_list));
-	begin = tmp;
-	if (f && lst)
+	begin = NULL;
+	while (lst)
 	{
-		while (lst)
-		{
-			tmp = (*f)(lst);
-			if (!tmp)
-				return (NULL);
-			lst = lst->next;
-			tmp = tmp->next;
-		}
+		ft_lstadd(&begin, (*f)(lst));
+		lst = lst->next;
 	}
 	return (begin);
 }

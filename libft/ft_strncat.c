@@ -14,9 +14,20 @@
 
 char	*ft_strncat(char *dst, const char *src, size_t len)
 {
-	while (*dst)
+	char	*cur;
+
+	cur = dst;
+	while (*cur != '\0')
 	{
-		dst++;
+		cur++;
 	}
-	return (ft_strncpy(dst, src, len));
+	while (*src != '\0' && len > 0)
+	{
+		*cur = *src;
+		cur++;
+		src++;
+		len--;
+	}
+	*cur = '\0';
+	return (dst);
 }

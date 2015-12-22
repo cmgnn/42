@@ -19,6 +19,7 @@
 # define BASE_DEC	"012345789"
 # define BASE_HEX	"012345789ABCDEF"
 
+void	*ft_memchr(const void *s, int c, size_t len);
 void	*ft_memccpy(void *dst, const void *src, int c, size_t n);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 void	ft_bzero(void *s, size_t n);
@@ -32,6 +33,7 @@ void	ft_strclr(char *s);
 void	ft_striter(char *s, void (*f)(char*));
 void	ft_striteri(char *s, void (*f)(unsigned int, char *));
 int		ft_strlen(const char *s);
+char	*ft_strsub(char const *s, unsigned int start, size_t len);
 char	*ft_strcat(char *dst, const char *src);
 char	*ft_strchr(const char *str, int c);
 int		ft_strcmp(const char *s1, const char *s2);
@@ -39,6 +41,7 @@ char	*ft_strcpy(char *dst, const char *src);
 char	*ft_strncpy(char *dst, const char *src, size_t size);
 char	*ft_strcat(char *dst, const char *src);
 char	*ft_strncat(char *dst, const char *src, size_t size);
+char	**ft_strplit(const char *str, char c);
 int		ft_atoi(char *str);
 char	*ft_itoa(int value);
 int		ft_isalpha(int c);
@@ -56,18 +59,12 @@ void	ft_putchar(char c);
 void	ft_putstr(const char *str);
 void	ft_putendl(const char *str);
 void	ft_putnbr(int n);
-char	*ft_strskip_word(char *str, char c);
-char	*ft_strskip_char(char *str, char c);
-int		ft_count_char(char *str, char c);
-int		ft_count_words(char *str, char c);
 void	ft_putnbr_base_fd(int nb, char *base, int fd);
 void	ft_putnbr_base(int nb, char *base);
-void	ft_puthex(unsigned long long number);
+void	ft_puthex(unsigned int number);
 void	ft_putdouble(double d);
 void	ft_putnstr(char *str, unsigned int offset);
 void	ft_print_memory(void *addr, unsigned int size);
-void	ft_printf(const char *str, ...);
-char	*ft_itoa_base(int value, char *base);
-void	ft_swap(void *a, void *b);
-int		ft_pow(int a, int n);
+void	ft_print(const char *str, ...);
+
 #endif
