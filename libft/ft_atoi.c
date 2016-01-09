@@ -14,26 +14,21 @@
 
 int		ft_atoi(char *str)
 {
-	int n;
-	int bool;
+	int		sign;
+	char	*cur;
+	int		result;
 
-	n = 0;
-	bool = 0;
-	if (*str == '-')
+	result = 0;
+	cur = (char *)str;
+	while (*cur && *cur != '-' && *cur != '+' && !ft_isdigit(*(cur + 1)))
+		cur++;
+	sign = (*cur == '-') ? -1 : 1;
+	cur = (*cur == '+' || *cur == '-') ? cur + 1 : cur;
+	while (ft_isdigit(*cur))
 	{
-		str++;
-		bool = 1;
+		result = result * 10 + *cur - 48;
+		cur++;
 	}
-	while (*str == '0')
-	{
-		str++;
-	}
-	while (*str && ft_isdigit(*str))
-	{
-		n *= 10;
-		n += *(str++) - '0';
-	}
-	if (bool)
-		n = -n;
-	return (n);
+	result *= sign;
+	return (result);
 }

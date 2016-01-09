@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_puthex.char                                     :+:      :+:    :+:   */
+/*   ft_puthex.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fjacquem <fjacquem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "implemt.h"
 
-static void		ft_puthex_rec(unsigned long long number)
+static void		ft_puthex_rec(unsigned int number)
 {
 	char	c;
 	char	*map;
 
-	map = "0123456789ABCDEF";
+	map = "0123456789abcdef";
 	if (number)
 	{
 		c = (char)(number & 0xF);
@@ -27,8 +27,11 @@ static void		ft_puthex_rec(unsigned long long number)
 	}
 }
 
-void			ft_puthex(unsigned long long number)
+void			ft_puthex(unsigned int number)
 {
 	ft_putstr("0x");
-	ft_puthex_rec(number);
+	if (number)
+		ft_puthex_rec(number);
+	else
+		ft_putstr("0");
 }

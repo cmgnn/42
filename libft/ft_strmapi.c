@@ -15,14 +15,20 @@
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
 	char			*str;
-	unsigned int	index;
+	unsigned int	i;
 
-	str = (char*)s;
-	index = 0;
-	while (s && *s)
+	if (!s || !f)
+		return (NULL);
+	str = (char*)malloc(sizeof(*str) * (ft_strlen(s) + 1));
+	if (str)
 	{
-		str[index] = (*f)(index, *(s++));
-		index++;
+		i = 0;
+		while (s[i])
+		{
+			str[i] = f(i, s[i]);
+			i++;
+		}
+		str[i] = '\0';
 	}
 	return (str);
 }

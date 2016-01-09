@@ -12,24 +12,62 @@
 
 #include "libft.h"
 
-char		**ft_strsplit(char *str, char c)
+static int		count_words(const char *s, char c)
 {
-	int		i;
-	int		j;
-	char	**split;
+	int		cnt;
+	int		tmp;
 
-	i = 0;
-	split = malloc(sizeof(char*) * ft_count_words(str, c));
-	while (*str)
+	tmp = 0;
+	cnt = 0;
+	while (*s != '\0')
 	{
-		split[i] = malloc(sizeof(char) * ft_count_char(str, c));
-		str = ft_strskip_char(str, c);
-		j = 0;
-		while (*str && *str != c)
-			split[i][j++] = *(str++);
-		split[i][j] = '\0';
-		i++;
-		str++;
+		if (tmp == 1 && *s == c)
+			tmp = 0;
+		if (tmp == 0 && *s != c)
+		{
+			tmp = 1;
+			cnt++;
+		}
+		s++;
 	}
-	return (split);
+	return (cnt);
+}
+
+static int		count_letter(const char *s, char c)
+{
+	int		len;
+
+	len = 0;
+	while (*s != c && *s != '\0')
+	{
+		len++;
+		s++;
+	}
+	return (len);
+}
+
+char			**ft_strsplit(char const *s, char c)
+{
+	char	**t;
+	int		nb_word;
+	int		index;
+
+	index = 0;
+	nb_word = count_words((const char *)s, c);
+	t = (char **)malloc(sizeof(*t) * (count_words((const char *)s, c) + 1));
+	if (t == NULL)
+		return (NULL);
+	while (nb_word--)
+	{
+		while (*s == c && *s != '\0')
+			s++;
+		t[index] = ft_strsub((const char *)s, 0,\
+			count_letter((const char *)s, c));
+		if (t[index] == NULL)
+			return (NULL);
+		s = s + count_letter(s, c);
+		index++;
+	}
+	t[index] = NULL;
+	return (t);
 }

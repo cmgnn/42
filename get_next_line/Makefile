@@ -6,7 +6,7 @@ SRC = get_next_line.c main.c
 LIB = -lft
 all: $(NAME)
 %.o: %.c
-	$(CC) $(FLAGS) -I libft/includes -o $@ -c $<
+	$(CC) $(FLAGS) -I libft/includes -o $@ -c $< -lft
 	
 $(NAME): $(OBJ)
 	 $(CC) -o $(NAME) $(OBJ) -I libft/includes -L libft/ $(LIB)

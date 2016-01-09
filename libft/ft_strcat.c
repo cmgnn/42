@@ -14,9 +14,19 @@
 
 char	*ft_strcat(char *dst, const char *src)
 {
+	char *ptr;
+
+	ptr = dst;
 	while (*dst)
 	{
 		dst++;
 	}
-	return (ft_strcpy(dst, src));
+	while (*src)
+	{
+		*dst = *src;
+		dst++;
+		src++;
+	}
+	*dst = 0;
+	return (ptr);
 }

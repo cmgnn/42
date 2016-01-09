@@ -8,7 +8,7 @@ void    print_base(unsigned int value, char c, unsigned int bits)
     unsigned int i = 0;
     while (i < bits)
     {
-        print("%c", !((1 << i) & value) >> i ?('.'):(c));
+		ft_printf("%c", !((1 << i) & value) >> i ?('.'):(c));
         value = value >> 1;
         bits--;
     }
@@ -22,42 +22,37 @@ void    print_solution(t_solution *s)
         j = 0;
         while (j < s->size)
         {
-            print("%c", s->buffer[i + s->size * j]);
+            ft_printf("%c", s->buffer[i + s->size * j]);
             j++;
         }
-        print("\n");
+        ft_printf("\n");
         i++;
     }
 }
-void    print_tab(unsigned int *tab, unsigned int size, char c)
+
+void	print_tab(unsigned int *tab, unsigned int size, char c)
 {
-    unsigned int i = 0;
-    if (tab)
-    while (i < size)
-    {
-        print_base(tab[i], (c)?c :'#', size);
-        print(" | %d\n", tab[i]);
-        i++;
-    }
-    else
-        print("(null)");
-    print("\n");
+	unsigned int i = 0;
+	if (tab)
+		while (i < size)
+		{
+			print_base(tab[i], (c)?c :'#', size);
+			ft_printf(" | %d\n", tab[i]);
+			i++;
+		}
+	else
+		ft_printf("(null)");
+	ft_printf("\n");
 }
-
-
-
-
 
 /* ***************************************************************************************************/
 /* *                 A D D I T I O N A L S _ F O N C T I O N S					     */
 /* ***************************************************************************************************/
 
-unsigned int	*get_matrix(int fd, int c)
+unsigned int	*get_matrix(unsigned int *mat, int fd, int c)
 {
-	unsigned int	*mat;
 	unsigned int	i;
 
-	mat = (unsigned int*)malloc(sizeof(unsigned int) * 26);
 	i = 0;
 	while (i < 26)
 		mat[i++] = 0;
@@ -76,7 +71,7 @@ unsigned int	*get_matrix(int fd, int c)
 		}
 		else
 		{
-			print("an error occured %c\n", c);
+			ft_printf("an error occured %c\n", c);
 			free(mat);
 			return (NULL);
 		}
@@ -106,7 +101,7 @@ t_tetrinoid	**init_fillit(char **argv)
 
 	n = 0;
 	c = 1;
-	
+
 	tab = (t_tetrinoid **)malloc(sizeof(t_tetrinoid*) * 26);
 	while (*argv)
 	{
@@ -117,20 +112,22 @@ t_tetrinoid	**init_fillit(char **argv)
 			{
 				if (c == '\n')
 					read(fd, &c, 1);
-				tab[n] = init_tetrinoid(get_matrix(fd, c), n + 'A');
+				tab[n] = init_tetrinoid(NULL, n + 'A');
+				get_matrix(tab[n]->mat, fd, c);
 				if (c == '\n' || (n > 0 && !tab[n - 1]))
 				{
 					free_matrix(tab);
 					free(tab);
-					print("map error\n");
+					ft_printf("map error\n");
 					return (NULL);
 				}
-				tab[n]->mat = reset_item(4, tab[n]->mat, 1);
+				reset_item(4, tab[n]->mat, 1);
+				//print_tab(tab[n]->mat, 4, 0);
 				n++;
 			}
 		}
 		else
-		    print("file error\n");
+		    ft_printf("file error\n");
 		close(fd);
 		argv++;
 	}
@@ -140,35 +137,34 @@ t_tetrinoid	**init_fillit(char **argv)
 
 int		main(int argc, char **argv)
 {
-	char    buffer[1000000];
-	unsigned int ref[26];
+	if (argc && argv)
+	{
+		ft_print_memory(argv, sizeof(argv));	
+	}
+/*	unsigned int ref[26];
 	t_solution *s;
 	t_tetrinoid **TAB;
 	unsigned int i;
+
 	TAB = NULL;
 	s = NULL;
 	i = 0;
 	if (argc && argv)
 	{
-		while (i < 10000)
-		{
-			buffer[i++] = '.';
-		}
-		i = 0;
 		while (i < 26)
 		{
 			ref[i++] = 0;
 		}
-		s = init_solution(buffer, 10);
+		s = init_solution(10);
 		TAB = init_fillit(argv + 1);
 		if (TAB)
 		{
-			v3(TAB, 0, ref, s);
+			v4(TAB, 0, ref, s);
 			print_solution(s);
 			i = 0;
 			while (TAB[i])
 			{
-				free_tetrinoid(TAB[i]);
+				free(TAB[i]);
 				i++;
 			}
 			free(TAB);
@@ -176,7 +172,7 @@ int		main(int argc, char **argv)
 		}
 	}
 	else
-		print("OOOOH my god !\n");
+		ft_printf("OOOOH my god !\n");*/
 	return (0);
 }
 	

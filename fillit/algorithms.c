@@ -171,6 +171,42 @@ int		move_delta(unsigned int *item, unsigned int *ref, unsigned int size)
 	return (0);
 }*/
 
+
+int		v4(t_tetrinoid **mat, unsigned int *item, unsigned int *ref, t_solution *s)
+{
+	t_tetrinoid	*tmp;
+	int		verif;
+	int		ret;
+
+	ret = -1;
+	//print_tab(ref, s->size, 0);
+	if (*mat)
+	{
+		tmp = (*mat);
+		while (move_item(ref, s->size, tmp->mat, bool) == 1)
+		{
+			verif = v4(mat + 1, 1, concat(ref, tmp->mat, s->size), s);
+			if(verif >= 0)
+			{
+				ret = 0;
+				leave_solution(verif ?((unsigned)verif) : (s->size),s, tmp);
+				build_solution(s->size,s, tmp);
+			}
+			if (verif > 0)
+				ref = reset(ref, tmp->mat, verif);
+			else
+				ref = reset(ref, tmp->mat, s->size);
+			bool = 1;
+		}
+		return (ret);
+	}
+	else if (s)
+	{
+		return (solution(s->size, ref , &s));
+	}
+	return (-1);
+}
+
 int		v3(t_tetrinoid **mat, int bool, unsigned int *ref, t_solution *s)
 {
 	t_tetrinoid	*tmp;

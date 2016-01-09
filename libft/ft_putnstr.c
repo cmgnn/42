@@ -10,16 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "implemt.h"
 
 void	ft_putnstr(char *str, unsigned int offset)
 {
-	if (str && offset && *str)
+	if (str && *str)
 	{
-		if (*str <= 126 && *str >= 32)
-			write(1, str, 1);
-		else
-			write(1, ".", 1);
-		ft_putnstr(str + 1, offset - 1);
+		if (offset)
+		{
+			if (ft_isprint(*str))
+				write(1, str, 1);
+			else
+				write(1, ".", 1);
+			ft_putnstr(str + 1, offset - 1);
+		}
 	}
 }

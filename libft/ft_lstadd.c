@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "list.h"
+#include "libft.h"
 
 void	ft_lstadd(t_list **alst, t_list *new)
 {
@@ -19,7 +19,7 @@ void	ft_lstadd(t_list **alst, t_list *new)
 
 	tmp = new;
 	tmp2 = *alst;
-	if (alst && *alst && new)
+	if (new)
 	{
 		while (tmp->next)
 			tmp = tmp->next;

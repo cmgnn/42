@@ -14,5 +14,14 @@
 
 char	*ft_strcpy(char *dst, const char *src)
 {
-	return (ft_memcpy((void*)dst, (const void*)src, ft_strlen(src)));
+	unsigned int i;
+
+	i = 0;
+	while (src[i])
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (dst);
 }

@@ -3,14 +3,14 @@
 /* ******************************************************************************************************* */
 #include "head.h"
 
-t_solution	*init_solution(char *buffer, unsigned int size)
+t_solution	*init_solution(unsigned int size)
 {
 	t_solution	*s;
 
 	if((s = (t_solution*)malloc(sizeof(t_solution))) != NULL)
 	{
 		s->size = size;
-		s->buffer = buffer;
+		ft_memset(s->buffer, '.',10000000);
 	}
 	return (s);
 }
@@ -18,11 +18,11 @@ t_solution	*init_solution(char *buffer, unsigned int size)
 t_tetrinoid	*init_tetrinoid(unsigned int *mat, char c)
 {
 	t_tetrinoid	*t;
-
 	if ((t = malloc(sizeof(t_tetrinoid))) != NULL)
 	{
 		t->c = c;
-		t->mat = mat;
+		if (mat)
+			ft_memcpy(t->mat, mat, 4);
 	}
 	return (t);
 }

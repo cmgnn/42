@@ -14,14 +14,21 @@
 
 size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	size_t	sleft;
+	char	*cur;
+	char	*reader;
+	size_t	len;
 
-	sleft = size;
-	while (*dst && sleft > 0 && sleft--)
-		dst++;
-	while (*src && sleft > 1 && sleft--)
-		*dst++ = *src++;
-	if (sleft == 1)
-		*dst = '\0';
-	return (size - sleft);
+	cur = (char *)ft_memchr(dst, '\0', size);
+	if (cur == NULL)
+		return (size + ft_strlen(src));
+	reader = (char *)src;
+	len = (size_t)(cur - dst) + ft_strlen(reader);
+	while ((size_t)(cur - dst) < size - 1 && *reader != '\0')
+	{
+		*cur = *reader;
+		cur++;
+		reader++;
+	}
+	*cur = '\0';
+	return (len);
 }
