@@ -14,6 +14,8 @@
 # define LIBFT_H
 # include <unistd.h>
 # include <stdlib.h>
+# ifndef LIST_H
+#  define LIST_H
 
 typedef struct		s_list
 {
@@ -22,11 +24,25 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+# endif
 # define BASE_BIN	"01"
 # define BASE_OCT	"0123457"
 # define BASE_DEC	"012345789"
 # define BASE_HEX	"012345789ABCDEF"
 
+char				*ft_strtrim(char const *s);
+char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
+char				*ft_strmap(const char *s, char (*f)(char));
+int					ft_strequ(char const *s1, char const *s2);
+int					ft_strnequ(char const *s1, char const *s2, size_t n);
+char				*ft_strjoin(char const *s1, char const *s2);
+char				*ft_strstr(const char *s1, const char *s2);
+char				*ft_strrchr(const char *s, int c);
+char				*ft_strnstr(const char *s1, const char *s2, size_t n);
+int					ft_strncmp(const char *s1, const char *s2, size_t n);
+size_t				ft_strlcat(char *dst, const char *src, size_t size);
+char				*ft_strdup(const char *src);
+int					ft_memcmp(void *s1, void *s2, size_t n);
 void				*ft_memchr(const void *s, int c, size_t len);
 void				*ft_memccpy(void *dst, const void *src, int c, size_t n);
 void				*ft_memcpy(void *dst, const void *src, size_t n);
@@ -40,7 +56,7 @@ void				ft_strdel(char **as);
 void				ft_strclr(char *s);
 void				ft_striter(char *s, void (*f)(char*));
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
-int					ft_strlen(const char *s);
+size_t				ft_strlen(const char *s);
 char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strcat(char *dst, const char *src);
 char				*ft_strchr(const char *str, int c);
@@ -49,7 +65,7 @@ char				*ft_strcpy(char *dst, const char *src);
 char				*ft_strncpy(char *dst, const char *src, size_t size);
 char				*ft_strcat(char *dst, const char *src);
 char				*ft_strncat(char *dst, const char *src, size_t size);
-char				**ft_strplit(const char *str, char c);
+char				**ft_strsplit(const char *str, char c);
 int					ft_atoi(char *str);
 char				*ft_itoa(int value);
 int					ft_isalpha(int c);

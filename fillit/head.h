@@ -3,9 +3,10 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <unistd.h>
+# include <stdio.h>
 # include "../libft/libft.h"
 # define MAX_TETRINOID 26
-# define SIZE_MAX 600
+# define MAX 10000000
 typedef struct		s_tetrinoid
 {
 	unsigned int	mat[MAX_TETRINOID];
@@ -14,14 +15,14 @@ typedef struct		s_tetrinoid
 
 typedef struct		s_solution
 {
-	char		buffer[10000000];
+	char		buffer[MAX];
 	unsigned int	size;
 }			t_solution;
 
 typedef	struct s_solverstate
 {
 	t_solution *s;
-	unsigned int ref[SIZE_MAX];
+	unsigned int ref[MAX];
 
 }				t_solverstate;
 
@@ -49,5 +50,6 @@ int		v3(t_tetrinoid **mat, int bool, unsigned int *ref, t_solution *s);
 void		print_tab(unsigned int *tab, unsigned int size, char c);
 
 void		print(const char *str, ...);
-
+int		v3(t_tetrinoid **mat, int bool, unsigned int *ref, t_solution *s);
+int		v4(t_tetrinoid **mat, unsigned int *item, unsigned int *ref, t_solution *s);
 #endif

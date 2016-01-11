@@ -2,6 +2,32 @@
 /*            I N I T I A L I Z E R                                                                    	*/
 /* ******************************************************************************************************* */
 #include "head.h"
+void	*ft_memcpy(void *dst, const void *src, size_t n)
+{
+	char			*tmp;
+	unsigned int	i;
+
+	i = 0;
+	tmp = (char*)dst;
+	while (i < n)
+	{
+		((char*)dst)[i] = ((const char*)src)[i];
+		i++;
+	}
+	return (tmp);
+}
+
+void	*ft_memset(void *b, int c, size_t len)
+{
+	void *tmp;
+
+	tmp = b;
+	while (len--)
+	{
+		*((unsigned char*)b++) = c;
+	}
+	return (tmp);
+}
 
 t_solution	*init_solution(unsigned int size)
 {

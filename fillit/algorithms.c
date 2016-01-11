@@ -177,7 +177,7 @@ int		v4(t_tetrinoid **mat, unsigned int *item, unsigned int *ref, t_solution *s)
 	t_tetrinoid	*tmp;
 	int		verif;
 	int		ret;
-
+	int		bool = 0;
 	ret = -1;
 	//print_tab(ref, s->size, 0);
 	if (*mat)
@@ -185,7 +185,7 @@ int		v4(t_tetrinoid **mat, unsigned int *item, unsigned int *ref, t_solution *s)
 		tmp = (*mat);
 		while (move_item(ref, s->size, tmp->mat, bool) == 1)
 		{
-			verif = v4(mat + 1, 1, concat(ref, tmp->mat, s->size), s);
+			verif = v4(mat + 1, item, concat(ref, tmp->mat, s->size), s);
 			if(verif >= 0)
 			{
 				ret = 0;

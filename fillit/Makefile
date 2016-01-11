@@ -3,9 +3,9 @@ CFLAGS = -Wall -Wextra -Werror
 NAME = fillit
 SRC = main.c algorithms.c init.c
 INC = head.h
-LIB = -lft
+LIB =
 all:
-	$(CC) $(CFLAGS) $(SRC) -o $(NAME) $(LIB)
+	$(CC) $(CFLAGS) $(SRC) -o $(NAME) $(LIB) -I ../libft/
 
 clean:
 	rm -f $(NAME)

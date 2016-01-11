@@ -8,7 +8,7 @@ void    print_base(unsigned int value, char c, unsigned int bits)
     unsigned int i = 0;
     while (i < bits)
     {
-		ft_printf("%c", !((1 << i) & value) >> i ?('.'):(c));
+		printf("%c", !((1 << i) & value) >> i ?('.'):(c));
         value = value >> 1;
         bits--;
     }
@@ -22,10 +22,10 @@ void    print_solution(t_solution *s)
         j = 0;
         while (j < s->size)
         {
-            ft_printf("%c", s->buffer[i + s->size * j]);
+            printf("%c", s->buffer[i + s->size * j]);
             j++;
         }
-        ft_printf("\n");
+        printf("\n");
         i++;
     }
 }
@@ -37,12 +37,12 @@ void	print_tab(unsigned int *tab, unsigned int size, char c)
 		while (i < size)
 		{
 			print_base(tab[i], (c)?c :'#', size);
-			ft_printf(" | %d\n", tab[i]);
+			printf(" | %d\n", tab[i]);
 			i++;
 		}
 	else
-		ft_printf("(null)");
-	ft_printf("\n");
+		printf("(null)");
+	printf("\n");
 }
 
 /* ***************************************************************************************************/
@@ -71,7 +71,7 @@ unsigned int	*get_matrix(unsigned int *mat, int fd, int c)
 		}
 		else
 		{
-			ft_printf("an error occured %c\n", c);
+			printf("an error occured %c\n", c);
 			free(mat);
 			return (NULL);
 		}
@@ -118,7 +118,7 @@ t_tetrinoid	**init_fillit(char **argv)
 				{
 					free_matrix(tab);
 					free(tab);
-					ft_printf("map error\n");
+					printf("map error\n");
 					return (NULL);
 				}
 				reset_item(4, tab[n]->mat, 1);
@@ -127,7 +127,7 @@ t_tetrinoid	**init_fillit(char **argv)
 			}
 		}
 		else
-		    ft_printf("file error\n");
+		    printf("file error\n");
 		close(fd);
 		argv++;
 	}
@@ -137,11 +137,7 @@ t_tetrinoid	**init_fillit(char **argv)
 
 int		main(int argc, char **argv)
 {
-	if (argc && argv)
-	{
-		ft_print_memory(argv, sizeof(argv));	
-	}
-/*	unsigned int ref[26];
+	unsigned int ref[26];
 	t_solution *s;
 	t_tetrinoid **TAB;
 	unsigned int i;
@@ -172,7 +168,7 @@ int		main(int argc, char **argv)
 		}
 	}
 	else
-		ft_printf("OOOOH my god !\n");*/
+		printf("OOOOH my god !\n");
 	return (0);
 }
 	
