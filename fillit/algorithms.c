@@ -1,80 +1,30 @@
-/*********************************************************************************************************/
-/**             M O V E _ T E T R I N O I D                                                              */
-/*********************************************************************************************************/
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   algorithms.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fjacquem <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2015/12/01 20:53:55 by fjacquem          #+#    #+#             */
+/*   Updated: 2015/12/01 20:53:57 by fjacquem         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "head.h"
-unsigned int	*move_left(unsigned int *item, unsigned int size)
-{
-	unsigned int	n;
 
-	n = 0;
-	while (n < size)
-	{
-		item[n] = item[n] << 1;
-		n++;
-	}
-	return (item);
-}
-
-unsigned int	*move_down(unsigned int *ref, unsigned int *item, unsigned int size)
-{
-	unsigned int	n;
-	unsigned int	j;
-
-	j = 0;
-	while (ref[j] != 0)
-	{
-		j++;
-	}
-	item = reset_item(size, item, 0);
-	n = size - 1;
-	while (n > 0)
-	{
-		item[n] = item[n-1];
-		n--;
-	}
-	item[0] = 0;
-	return (item);
-}
-
-int		move_item(unsigned int *ref, unsigned int size, unsigned int *tmp, int bool)
-{
-	int	b;
-
-	b = 0;
-	if (bool)
-		tmp = move_left(tmp, size);
-	while (b < 1)
-	{
-		b = verification(ref, tmp, size);
-		if (b == 0)
-			tmp = move_down(ref, tmp, size);
-		else if (b == -1)
-			tmp = move_left(tmp, size);
-		else if (b == -2)
-		{
-			tmp = reset_item(size, tmp, 1);
-			return (0);
-		}
-	}
-	return (1);
-}
-
-/*********************************************************************************************************/
-/**             A L G O R I T H M S                                                                      */
-/*********************************************************************************************************/
-unsigned int	bits_fort(unsigned int value, unsigned int n)
+t_octet			bits_fort(t_octet value, t_octet n)
 {
 	if (value && n)
 		return ((1 << n) & value) ? (n) : bits_fort(value, n - 1);
 	return (0);
 }
 
-unsigned int	bits_faible(unsigned int value, unsigned int n)
+t_octet			bits_faible(t_octet value, t_octet n)
 {
 	return ((1 << n) & value) ? (n) : bits_faible(value, n + 1);
 }
 
-int             solution(unsigned int size, unsigned int *ref, t_solution **s)
+int				solution(t_octet size, t_octet *ref, t_solution **s)
 {
 	unsigned int	i;
 	unsigned int	d_xm;
@@ -113,35 +63,9 @@ int             solution(unsigned int size, unsigned int *ref, t_solution **s)
 	return (-1);
 }
 
-unsigned int	*concat(unsigned int *ref, unsigned int *item, unsigned int size)
+int				verification(t_octet *ref, t_octet *item, t_octet size)
 {
-	unsigned int i;
-
-	i = 0;
-	while (i < size)
-	{
-		ref[i] = item[i] | ref[i];
-		i++;
-	}
-	return (ref);
-}
-
-unsigned int	*reset(unsigned int *ref, unsigned int *item, unsigned int size)
-{
-	unsigned int	i;
-
-	i = 0;
-	while (i < size)
-	{
-		ref[i] = (~item[i] & ref[i]);
-		i++;
-	}
-	return (ref);
-}
-
-int		verification(unsigned int *ref, unsigned int *item, unsigned int size)
-{
-	unsigned int	n;
+	t_octet	n;
 
 	n = 0;
 	if (item[size] != 0)
@@ -159,85 +83,4 @@ int		verification(unsigned int *ref, unsigned int *item, unsigned int size)
 		n++;
 	}
 	return (1);
-}
-/*
-
-int		move_delta(unsigned int *item, unsigned int *ref, unsigned int size)
-{
-	unsigned int	i = 0;
-	
-	while (i < size)
-		i++;
-	return (0);
-}*/
-
-
-int		v4(t_tetrinoid **mat, unsigned int *item, unsigned int *ref, t_solution *s)
-{
-	t_tetrinoid	*tmp;
-	int		verif;
-	int		ret;
-	int		bool = 0;
-	ret = -1;
-	//print_tab(ref, s->size, 0);
-	if (*mat)
-	{
-		tmp = (*mat);
-		while (move_item(ref, s->size, tmp->mat, bool) == 1)
-		{
-			verif = v4(mat + 1, item, concat(ref, tmp->mat, s->size), s);
-			if(verif >= 0)
-			{
-				ret = 0;
-				leave_solution(verif ?((unsigned)verif) : (s->size),s, tmp);
-				build_solution(s->size,s, tmp);
-			}
-			if (verif > 0)
-				ref = reset(ref, tmp->mat, verif);
-			else
-				ref = reset(ref, tmp->mat, s->size);
-			bool = 1;
-		}
-		return (ret);
-	}
-	else if (s)
-	{
-		return (solution(s->size, ref , &s));
-	}
-	return (-1);
-}
-
-int		v3(t_tetrinoid **mat, int bool, unsigned int *ref, t_solution *s)
-{
-	t_tetrinoid	*tmp;
-	int		verif;
-	int		ret;
-
-	ret = -1;
-	if (*mat)
-	{
-		tmp = (*mat);
-		while (move_item(ref, s->size, tmp->mat, bool) == 1)
-		{
-			ref = concat(ref, tmp->mat, s->size);
-			verif = v3(mat + 1, 1, ref, s);
-			if(verif >= 0)
-			{
-				ret = 0;
-				leave_solution(verif ?((unsigned)verif) : (s->size),s, tmp);
-				build_solution(s->size,s, tmp);
-			}
-			if (verif > 0)
-				ref = reset(ref, tmp->mat, verif);
-			else
-				ref = reset(ref, tmp->mat, s->size);
-			bool = 1;
-		}
-		return (ret);
-	}
-	else if (s)
-	{
-		return (solution(s->size, ref , &s));
-	}
-	return (-1);
 }

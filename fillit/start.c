@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   start.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fjacquem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,33 +12,31 @@
 
 #include "head.h"
 
-t_solution	*init_solution(unsigned int size)
+int		main(int argc, char **argv)
 {
-	t_solution	*s;
+	unsigned int	ref[26];
+	t_solution		*s;
+	t_tetrinoid		**tab;
+	unsigned int	i;
 
-	if ((s = (t_solution*)malloc(sizeof(t_solution))) != NULL)
+	tab = NULL;
+	s = NULL;
+	i = 0;
+	if (argc && argv)
 	{
-		s->size = size;
-		ft_memset(s->buffer, '.', 10000000);
+		ft_memset(ref, 0, sizeof(int) * 26);
+		s = init_solution(10);
+		tab = init_fillit(argv + 1);
+		if (tab)
+		{
+			v4(tab, 0, ref, s);
+			print_solution(s);
+			i = 0;
+			while (tab[i])
+				free(tab[i++]);
+			free(tab);
+			free(s);
+		}
 	}
-	return (s);
-}
-
-t_tetrinoid	*init_tetrinoid(unsigned int *mat, char c)
-{
-	t_tetrinoid	*t;
-
-	if ((t = malloc(sizeof(t_tetrinoid))) != NULL)
-	{
-		t->c = c;
-		if (mat)
-			ft_memcpy(t->mat, mat, 4);
-	}
-	return (t);
-}
-
-void		free_tetrinoid(t_tetrinoid *t)
-{
-	free(t->mat);
-	free(t);
+	return (0);
 }

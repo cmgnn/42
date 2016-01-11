@@ -1,5 +1,17 @@
-#ifndef TETRINOID
-# define TETRINOID
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   head.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fjacquem <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2015/12/01 20:53:55 by fjacquem          #+#    #+#             */
+/*   Updated: 2015/12/01 20:53:57 by fjacquem         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef HEAD_H
+# define HEAD_H
 # include <stdlib.h>
 # include <fcntl.h>
 # include <unistd.h>
@@ -7,49 +19,48 @@
 # include "../libft/libft.h"
 # define MAX_TETRINOID 26
 # define MAX 10000000
-typedef struct		s_tetrinoid
+
+typedef unsigned int	t_octet;
+typedef struct			s_tetrinoid
 {
-	unsigned int	mat[MAX_TETRINOID];
-	char		c;
-}			t_tetrinoid;
+	t_octet				mat[MAX_TETRINOID];
+	char				c;
+}						t_tetrinoid;
 
-typedef struct		s_solution
+typedef struct			s_solution
 {
-	char		buffer[MAX];
-	unsigned int	size;
-}			t_solution;
+	char				buffer[MAX];
+	t_octet				size;
+}						t_solution;
 
-typedef	struct s_solverstate
+typedef	struct			s_solverstate
 {
-	t_solution *s;
-	unsigned int ref[MAX];
+	t_solution			*s;
+	t_octet				ref[MAX];
 
-}				t_solverstate;
+}						t_solverstate;
 
-//int		v4(t_tetrinoid **mat, int bool, unsigned int *ref, t_solution *s);
+t_solution				*init_solution(t_octet size);
+t_tetrinoid				*init_tetrinoid(t_octet *mat, char c);
+void					free_tetrinoid(t_tetrinoid *t);
+t_octet					*init_item(t_octet *buffer, t_octet size);
+void					build_solution(t_octet size, t_solution *s, t_tetrinoid *item);
+void					leave_solution(t_octet size, t_solution *s, t_tetrinoid *item);
+void					print_solution(t_solution *s);
+t_octet					*move_left(t_octet *item, t_octet size);
+t_octet					*move_down(t_octet *ref, t_octet *item, t_octet size);
+int						move_item(t_octet *ref, t_octet size, t_octet *tmp, int bool);
+t_octet					*reset_item(t_octet size, t_octet *item, int flag);
+t_octet					bits_fort(t_octet value, t_octet n);
+int						solution(t_octet size, t_octet *ref, t_solution **s);
+t_octet					*concat(t_octet *ref, t_octet *item, t_octet size);
+t_octet					*reset(t_octet *ref, t_octet *item, t_octet size);
+int						verification(t_octet *ref, t_octet *item, t_octet size);
+void					print_tab(t_octet *tab, t_octet size, char c);
+void					print(const char *str, ...);
+int						v3(t_tetrinoid **mat, int bool, t_octet *ref, t_solution *s);
+int						v4(t_tetrinoid **mat, t_octet *item, t_octet *ref, t_solution *s);
+void					free_matrix(t_tetrinoid **tab);
+t_tetrinoid				**init_fillit(char **argv);
 
-t_solution	*init_solution(unsigned int size);
-t_tetrinoid	*init_tetrinoid(unsigned int *mat, char c);
-void		free_tetrinoid(t_tetrinoid *t);
-unsigned int	*init_item(unsigned int *buffer, unsigned int size);
-void		build_solution(unsigned int size, t_solution *s, t_tetrinoid *item);
-void		leave_solution(unsigned int size, t_solution *s, t_tetrinoid *item);
-
-unsigned int	*move_left(unsigned int *item, unsigned int size);
-unsigned int	*move_down(unsigned int *ref, unsigned int *item, unsigned int size);
-int		move_item(unsigned int *ref, unsigned int size, unsigned int *tmp, int bool);
-unsigned int	*reset_item(unsigned int size, unsigned int *item, int flag);
-
-unsigned int	bits_fort(unsigned int value, unsigned int n);
-int             solution(unsigned int size, unsigned int *ref, t_solution **s);
-unsigned int	*concat(unsigned int *ref, unsigned int *item, unsigned int size);
-unsigned int	*reset(unsigned int *ref, unsigned int *item, unsigned int size);
-int		verification(unsigned int *ref, unsigned int *item, unsigned int size);
-int		v3(t_tetrinoid **mat, int bool, unsigned int *ref, t_solution *s);
-
-void		print_tab(unsigned int *tab, unsigned int size, char c);
-
-void		print(const char *str, ...);
-int		v3(t_tetrinoid **mat, int bool, unsigned int *ref, t_solution *s);
-int		v4(t_tetrinoid **mat, unsigned int *item, unsigned int *ref, t_solution *s);
 #endif

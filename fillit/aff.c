@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   affichage.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fjacquem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,33 +12,51 @@
 
 #include "head.h"
 
-t_solution	*init_solution(unsigned int size)
+void	print_base(unsigned int value, char c, unsigned int bits)
 {
-	t_solution	*s;
+	unsigned int i;
 
-	if ((s = (t_solution*)malloc(sizeof(t_solution))) != NULL)
+	i = 0;
+	while (i < bits)
 	{
-		s->size = size;
-		ft_memset(s->buffer, '.', 10000000);
+		printf("%c", !((1 << i) & value) >> i ? ('.') : (c));
+		value = value >> 1;
+		bits--;
 	}
-	return (s);
 }
 
-t_tetrinoid	*init_tetrinoid(unsigned int *mat, char c)
+void	print_solution(t_solution *s)
 {
-	t_tetrinoid	*t;
+	unsigned int i;
+	unsigned int j;
 
-	if ((t = malloc(sizeof(t_tetrinoid))) != NULL)
+	i = 0;
+	while (i < s->size)
 	{
-		t->c = c;
-		if (mat)
-			ft_memcpy(t->mat, mat, 4);
+		j = 0;
+		while (j < s->size)
+		{
+			printf("%c", s->buffer[i + s->size * j]);
+			j++;
+		}
+		printf("\n");
+		i++;
 	}
-	return (t);
 }
 
-void		free_tetrinoid(t_tetrinoid *t)
+void	print_tab(unsigned int *tab, unsigned int size, char c)
 {
-	free(t->mat);
-	free(t);
+	unsigned int i;
+
+	i = 0;
+	if (tab)
+		while (i < size)
+		{
+			print_base(tab[i], (c) ? c : '#', size);
+			printf(" | %d\n", tab[i]);
+			i++;
+		}
+	else
+		printf("(null)");
+	printf("\n");
 }
