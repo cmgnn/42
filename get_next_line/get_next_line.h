@@ -1,13 +1,17 @@
-#ifndef GNL_H
-# define GNL_H
-# ifndef BUFF_SIZE
-# define BUFF_SIZE 300
-# endif
-# include <fcntl.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include "../libft/libft.h"
-int	get_next_line(int const fd, char **line);
-#define gnl(x,l)	get_next_line(x,l)
-#endif
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+#include <fcntl.h>
+#include <stdlib.h>
+#include "../../Documents/42/libft/libft.h"
 
+typedef struct	s_fd
+{
+	int	fd;
+	char	**buffer;
+}		t_fd;
+
+typedef struct t_list	t_fdlist;
+
+#define BUFF_SIZE 200
+
+#endif
