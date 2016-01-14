@@ -6,10 +6,10 @@ SRC = get_next_line.c main.c
 LIB = -lft
 all: $(NAME)
 %.o: %.c
-	$(CC) $(FLAGS) -I libft/includes -o $@ -c $< -lft
+	$(CC) -Wall -Wextra -I libft/includes -o $@ -c $< -lft
 	
 $(NAME): $(OBJ)
-	 $(CC) -o $(NAME) $(OBJ) -I libft/includes -L libft/ $(LIB)
+	$(CC) -Wall -Wextra -o $(NAME) $(OBJ) -I libft/includes -L libft/ $(LIB)
 
 clean:
 	/bin/rm -f $(OBJ)
@@ -17,6 +17,4 @@ clean:
 fclean: clean
 	/bin/rm -f $(NAME)
 
-purge: fclean
-
-re:	purge all
+re:	fclean all
