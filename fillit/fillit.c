@@ -6,7 +6,7 @@
 /*   By: fjacquem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/01 20:53:55 by fjacquem          #+#    #+#             */
-/*   Updated: 2015/12/01 20:53:57 by fjacquem         ###   ########.fr       */
+/*   Updated: 2016/01/15 02:13:36 by fjacquem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,13 @@ t_tetrinoid	**init_fillit(char **argv)
 					read(fd, &c, 1);
 				tab[n] = init_tetrinoid(NULL, n + 'A');
 				get_matrix(tab[n]->mat, fd, c);
-				if (c == '\n' || (n > 0 && !tab[n - 1]))
+				if ((!is_tetrinoid(tab[n]->mat)) || c == '\n' || (n > 0 && !tab[n - 1]))
 				{
-					free_matrix(tab);
-					free(tab);
-					printf("map error\n");
-					return (NULL);
+          printf("map error\n");
+          //free_matrix(tab);
+          //if (tab)
+          //  free(tab);
+          return (NULL);
 				}
 				reset_item(4, tab[n]->mat, 1);
 				n++;
@@ -91,7 +92,8 @@ void		free_matrix(t_tetrinoid **tab)
 	n = 0;
 	while (tab[n])
 	{
-		free(tab[n]);
+    //if (tab[n])
+		//  free(tab[n]);
 		n++;
 	}
 }

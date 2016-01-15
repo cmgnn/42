@@ -6,11 +6,12 @@
 /*   By: fjacquem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/01 20:51:59 by fjacquem          #+#    #+#             */
-/*   Updated: 2015/12/01 20:52:01 by fjacquem         ###   ########.fr       */
+/*   Updated: 2016/01/14 21:47:52 by fjacquem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "implemt.h"
 
 void	ft_print_memory(void *addr, unsigned int size)
 {

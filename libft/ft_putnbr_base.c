@@ -6,11 +6,12 @@
 /*   By: fjacquem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/01 20:51:11 by fjacquem          #+#    #+#             */
-/*   Updated: 2015/12/01 20:51:13 by fjacquem         ###   ########.fr       */
+/*   Updated: 2016/01/14 21:49:19 by fjacquem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "implemt.h"
 
 void	ft_putnbr_base(int nb, char *base)
 {

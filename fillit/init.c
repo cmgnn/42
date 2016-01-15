@@ -6,7 +6,7 @@
 /*   By: fjacquem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/01 20:53:55 by fjacquem          #+#    #+#             */
-/*   Updated: 2015/12/01 20:53:57 by fjacquem         ###   ########.fr       */
+/*   Updated: 2016/01/15 02:16:36 by fjacquem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,36 @@ t_tetrinoid	*init_tetrinoid(unsigned int *mat, char c)
 
 void		free_tetrinoid(t_tetrinoid *t)
 {
-	free(t->mat);
-	free(t);
+  if (t)
+  {
+//	  free(t->mat);
+	  free(t);
+  }
+}
+
+int   is_tetrinoid(unsigned int *mat)
+{
+  unsigned int  i;
+  unsigned int  j;
+  unsigned int  compt;
+  unsigned int  bool;
+
+  bool = 0;
+  compt = 0;
+  i = 0;
+  while (i < 4)
+  {
+    j = 0;
+    while (j < 4)
+    {
+      if ((mat[i] >> j) & 1 && ((j < 3 && mat[i] >> (j + 1) & 1) || (j > 0 && mat[i] >> (j - 1) & 1) || (i < 4 && mat[i] & mat[i + 1]) || (i > 0 && mat[i] & mat[i - 1])))
+      {
+        compt++;
+      }
+      j++;
+    }
+    i++;
+  }
+  printf("<%d>\n", compt);
+  return (compt == 4);
 }

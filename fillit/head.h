@@ -6,7 +6,7 @@
 /*   By: fjacquem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/01 20:53:55 by fjacquem          #+#    #+#             */
-/*   Updated: 2015/12/01 20:53:57 by fjacquem         ###   ########.fr       */
+/*   Updated: 2016/01/14 22:23:31 by fjacquem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef	struct			s_solverstate
 
 }						t_solverstate;
 
+int             is_tetrinoid(unsigned int* mat);
 t_solution				*init_solution(t_octet size);
 t_tetrinoid				*init_tetrinoid(t_octet *mat, char c);
 void					free_tetrinoid(t_tetrinoid *t);
