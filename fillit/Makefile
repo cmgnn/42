@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra
 NAME = fillit
 SRC = start.c fillit.c solv.c aff.c algorithms.c init.c move_item.c
 INC = head.h

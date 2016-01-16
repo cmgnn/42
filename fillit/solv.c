@@ -142,7 +142,7 @@ int				v3(t_tetrinoid **mat, int bool, t_octet *ref, t_solution *s)
 				leave_solution(verif ? ((unsigned)verif) : (s->size), s, tmp);
 				build_solution(s->size, s, tmp);
 			}
-			ref = reset(ref, tmp->mat, (verif > 0) ? verif : s->size);
+			ref = reset(ref, tmp->mat, (verif > 0) ? verif : (int)s->size);
 			bool = 1;
 		}
 		return (ret);

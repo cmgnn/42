@@ -66,10 +66,10 @@ t_tetrinoid	**init_fillit(char **argv)
 				get_matrix(tab[n]->mat, fd, c);
 				if ((!is_tetrinoid(tab[n]->mat)) || c == '\n' || (n > 0 && !tab[n - 1]))
 				{
-          printf("map error\n");
-          //free_matrix(tab);
+        			
+         			free_matrix(tab);printf("map error\n");
           //if (tab)
-          //  free(tab);
+				free(tab);
           return (NULL);
 				}
 				reset_item(4, tab[n]->mat, 1);
@@ -92,8 +92,8 @@ void		free_matrix(t_tetrinoid **tab)
 	n = 0;
 	while (tab[n])
 	{
-    //if (tab[n])
-		//  free(tab[n]);
+    	if (tab[n])
+		  free(tab[n]);
 		n++;
 	}
 }

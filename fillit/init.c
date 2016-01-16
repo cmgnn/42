@@ -41,7 +41,7 @@ void		free_tetrinoid(t_tetrinoid *t)
 {
   if (t)
   {
-//	  free(t->mat);
+	  //free_matrix(t->mat);
 	  free(t);
   }
 }
@@ -51,9 +51,7 @@ int   is_tetrinoid(unsigned int *mat)
   unsigned int  i;
   unsigned int  j;
   unsigned int  compt;
-  unsigned int  bool;
-
-  bool = 0;
+ 
   compt = 0;
   i = 0;
   while (i < 4)
@@ -69,6 +67,6 @@ int   is_tetrinoid(unsigned int *mat)
     }
     i++;
   }
-  printf("<%d>\n", compt);
+  //printf("<%d>\n", compt);
   return (compt == 4);
 }
