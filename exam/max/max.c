@@ -5,13 +5,16 @@ int max(int *tab, unsigned int len)
 
   if (!tab)
   {
-    max = *tab;
+    max = tab[0];
     while (index < len)
     {
       if (max > tab[index])
         max = tab[index];
       index++;
     }
+    return (max);
   }
-  return (max);
+  return (0);
 }
+
+
