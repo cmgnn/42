@@ -1,100 +1,92 @@
 #include "get_next_line.h"
-#include <stdio.h>
-#include <string.h>
-static int	split(char *buf, char *dst, char *s);
 
-static int	split(char *buf, char *dst, char *s)
-{
-	int i = 0, j = 0;
-	if (buf && dst && s)
-	{
-		while (s[i] && s[i] != '\n')
-		{
-			dst[i] = s[i];
-			//s[i] = s[i + 1];
-			i++;
-		}
-//	dst[i] = '\0';
-//	printf("<%s>", dst);
-//	printf("1\n");
-		j = i;
-		if (s[i])
-			i++;
-		else
-			return (i);
-		i = 0;
-//	printf("2\n");
-//	printf("wtf\n");
-//		*buf = 0;
-		while (s[j])
-		{
-			buf[i] = s[j];
-			s[i] = s[j + 1];
-			i++;
-			j++;
-		}
-//	printf("3\n");
-		return (i - j);
-	}
-	return (-1);
-}
-
-char	*ft_realloc(char *addr, size_t len)
+static	char	*realloc_buffer(char *addr, size_t len)
 {
 	char	*ptr;
 
-	ptr = ft_strnew(len);
-	ft_strcpy(ptr, addr);
-	free(addr);
+	if (addr && (ptr = ft_strnew(len)))
+	{
+		ft_strcpy(ptr, addr);
+		ptr[len] = 0;
+		free(addr);
+	}
 	return(ptr);
-	addr = ft_strnew(len);
-	ft_strcpy(addr, ptr);
-	free(ptr);
-	return (addr);
 }
 
-int		get_next_line(const int fd, char **line)
+static	char	*set_line(char *buf, char *line, size_t len)
 {
-	static char		*(keep[99]);
-	int		len = -1;
-	char		*buffer = NULL;
-	//int			ret = 1;
+	size_t index = 0;
 
-	if (fd < 0 || !line)
-		return (-1);
-	buffer = (char*)malloc(sizeof(char) * BUFF_SIZE);
-	ft_bzero(buffer, BUFF_SIZE);
-	len = split(keep[fd], buffer, keep[fd]);
-	if (len > 0)
+	while (index < len && *buf != '\n' && *buf)
 	{
-		len += BUFF_SIZE;
-		buffer = ft_realloc(buffer, len + 1);
-	}else{
+		line[index] = *(buf++);
+		index++;
+	}
+	if (*buf)
+		buf++;
+	line[index] = 0;
+	return (buf);
+}
+
+static	int		read_buffer(const int fd, char **line)
+{
+	static char *(keep[255]) = {0};
+	char		*buf;
+	int	len;
+	int	ret;
+
+	ret = 1;
+	buf = ft_strnew((keep[fd]) ? ft_strlen(keep[fd]) : BUFF_SIZE);
+	buf[0] = 0;
+	if (keep[fd])
+	{
+		ft_strcpy(buf, keep[fd]);
 		free(keep[fd]);
 		keep[fd] = NULL;
-		len = 0;
-	}buffer[len + 1] = 0;
-	//printf("keep :%s\n", keep[fd]);
-	while (ft_strchr(buffer, '\n') == NULL && read(fd, buffer + len, BUFF_SIZE) > 0)
-	{
-		len += BUFF_SIZE;
-		printf("<%d<%s>\n", len, buffer);
-		buffer = (char*)ft_realloc(buffer, (len + 1));
-		buffer[len + 1] = 0;
 	}
-	if (!keep[fd])
-		keep[fd] = (char*)malloc(sizeof(char) * (len + 1));
+	len = ft_strlen(buf);
+	while (ret > 0) 
+	{
+		if (!ft_strchr(buf, '\n'))
+		{
+			len += BUFF_SIZE;
+			buf = realloc_buffer(buf, len);
+			ret = read(fd, &buf[len - BUFF_SIZE], (size_t)(BUFF_SIZE));
+			if (ret < 0)
+			{
+				ft_memdel((void**)&keep[fd]);
+				ft_memdel((void**)&buf);
+				return (-1);
+			}
+		}
+		else
+			ret = -1;
+	}
 	if (!*line)
-	{
 		*line = ft_strnew(len);
-	}
-	len = split((char*)keep[fd], *line, buffer);
-	if (keep[fd] && len == 0)
+	//printf("line<%s>\n", buf);
+	if (keep[fd])
+		ft_memdel((void**)&keep[fd]);
+	keep[fd] = ft_strnew(len);
+	keep[fd] = ft_strcpy(keep[fd], set_line(buf, *line, len));	
+	if (!*buf)
 	{
-		free(keep[fd]);
-		keep[fd] = NULL;
+		ft_memdel((void**)&keep[fd]);
+		ft_memdel((void**)&buf);
+		return -1;
 	}
-	free(buffer);
+	ft_memdel((void**)&buf);
 	return (!!len);
 }
 
+int	get_next_line(int const fd, char **line)
+{
+	int size = 0;
+	//sleep(1);
+	if (fd < 0 || !line)
+		return (-1);
+	size = read_buffer(fd, line);
+	if (size < 0)
+		return (-1);
+	return (size);
+}
