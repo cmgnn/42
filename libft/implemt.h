@@ -20,7 +20,6 @@ void	ft_putnbr_base_fd(int nb, char *base, int fd);
 void	ft_putnbr_base(int nb, char *base);
 void	ft_putdouble(double d);
 void	ft_puthex(unsigned int number);
-void	ft_print(const char *str, ...);
 char	*ft_strrev(char *str);
 void	ft_putnstr(char *str, unsigned int offset);
 int		ft_abs(int n);

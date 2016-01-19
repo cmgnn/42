@@ -1,6 +1,6 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
-# include "../libft/libft.h"
+# include "../libft/implemt.h"
 # include <stdarg.h>
 
 # define BASE_BIN		"01"

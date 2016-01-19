@@ -36,8 +36,8 @@ int		ft_putlong_base(long long nb, char *base)
 		}
 		if (nb >= length)
 		{
-			ret += ft_putnbr_base(nb / length, base);
-			ret += ft_putnbr_base(nb % length, base);
+			ret += ft_putlong_base(nb / length, base);
+			ret += ft_putlong_base(nb % length, base);
 		}
 		else
 		{
@@ -54,7 +54,7 @@ int	ft_putdouble_base(double d, int prec, char *base)
 	int		len;
 
 	i = 0;
-	len = ft_putnbr_base((int)d, base) + 1;
+	len = ft_putlong_base((int)d, base) + 1;
 	printchar('.');
 	d -= (int)d;
 	while (i++ < prec)
@@ -66,5 +66,5 @@ int	ft_putdouble_base(double d, int prec, char *base)
 			len++;
 		}
 	}
-	return ft_putnbr_base((int)d, BASE_DEC) + len;
+	return ft_putlong_base((int)d, BASE_DEC) + len;
 }

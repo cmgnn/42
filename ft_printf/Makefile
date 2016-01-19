@@ -21,7 +21,7 @@ OBJ = fcts.o ft_printf.o
 all: $(NAME)
 
 $(OBJ):
-	make -C $(LIBFT) addfct dymlib
+	make -C $(LIBFT) addfct
 	$(CC) $(FLAGS) -c $(SRC)
 
 $(NAME): $(OBJ)
