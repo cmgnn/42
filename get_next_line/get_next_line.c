@@ -82,7 +82,7 @@ static	int		read_buffer(const int fd, char **line)
 int	get_next_line(int const fd, char **line)
 {
 	int size = 0;
-	//sleep(1);
+
 	if (fd < 0 || !line)
 		return (-1);
 	size = read_buffer(fd, line);

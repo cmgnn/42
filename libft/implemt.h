@@ -23,5 +23,8 @@ void	ft_puthex(unsigned int number);
 void	ft_print(const char *str, ...);
 char	*ft_strrev(char *str);
 void	ft_putnstr(char *str, unsigned int offset);
+int		ft_abs(int n);
+void	ft_swap(void *a, void *b);
+void	*ft_realloc(void *addr, size_t len);
 
 #endif

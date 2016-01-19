@@ -26,9 +26,9 @@ typedef struct		s_list
 
 # endif
 # define BASE_BIN	"01"
-# define BASE_OCT	"0123457"
-# define BASE_DEC	"012345789"
-# define BASE_HEX	"012345789ABCDEF"
+# define BASE_OCT	"01234567"
+# define BASE_DEC	"0123456789"
+# define BASE_HEX	"0123456789ABCDEF"
 
 void				*ft_memset(void *b, int c, size_t len);
 void				ft_bzero(void *s, size_t n);
