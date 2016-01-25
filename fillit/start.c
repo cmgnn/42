@@ -17,11 +17,9 @@ int		main(int argc, char **argv)
 	unsigned int	ref[26];
 	t_solution		*s;
 	t_tetrinoid		**tab;
-//	unsigned int	i;
 
 	tab = NULL;
 	s = NULL;
-//	i = 0;
 	if (argc && argv)
 	{
 		ft_memset(ref, 0, sizeof(int) * 26);
@@ -31,7 +29,6 @@ int		main(int argc, char **argv)
 		{
 			v4(tab, 0, ref, s);
 			print_solution(s);
-//			i = 0;
 			free_matrix(tab);
 			free(tab);
 		}

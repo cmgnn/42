@@ -12,7 +12,7 @@
 
 #include "head.h"
 
-t_octet			*get_matrix(t_octet *mat, int fd, int c)
+t_octet				*get_matrix(t_octet *mat, int fd, int c)
 {
 	unsigned int	i;
 
@@ -24,9 +24,7 @@ t_octet			*get_matrix(t_octet *mat, int fd, int c)
 	while (i < 16 && read(fd, &c, 1))
 	{
 		if (c == '\n')
-		{
 			mat[i / 4] = (0);
-		}
 		else if (c == '#' || c == '.')
 		{
 			mat[i / 4] += (c == '#') ? 1 << (i % 4) : 0;
@@ -34,7 +32,6 @@ t_octet			*get_matrix(t_octet *mat, int fd, int c)
 		}
 		else
 		{
-			printf("an error occured %c\n", c);
 			free(mat);
 			return (NULL);
 		}
@@ -43,57 +40,64 @@ t_octet			*get_matrix(t_octet *mat, int fd, int c)
 	return (mat);
 }
 
-t_tetrinoid	**init_fillit(char **argv)
+t_tetrinoid			**build_tetrinoid(const int fd, t_tetrinoid **tab)
+{
+	unsigned int	n;
+	char			c;
+
+	n = 0;
+	c = 1;
+	while (read(fd, &c, 1) && c)
+	{
+		if (c == '\n')
+			read(fd, &c, 1);
+		tab[n] = init_tetrinoid(NULL, n + 'A');
+		get_matrix(tab[n]->mat, fd, c);
+		if ((!is_tetrinoid(tab[n]->mat)) || c == '\n' ||
+			(n > 0 && !tab[n - 1]))
+		{
+			free_matrix(tab);
+			ft_putendl_fd("map error", 2);
+			free(tab);
+			return (NULL);
+		}
+		reset_item(4, tab[n]->mat, 1);
+		n++;
+	}
+	tab[n] = NULL;
+	return (tab);
+}
+
+t_tetrinoid			**init_fillit(char **argv)
 {
 	int				fd;
 	char			c;
-	unsigned int	n;
 	t_tetrinoid		**tab;
 
-	n = 0;
 	c = 1;
 	tab = (t_tetrinoid **)malloc(sizeof(t_tetrinoid*) * 26);
 	while (*argv)
 	{
 		fd = open(*argv, O_RDONLY);
 		if (fd >= 0)
-		{
-			while (read(fd, &c, 1) && c)
-			{
-				if (c == '\n')
-					read(fd, &c, 1);
-				tab[n] = init_tetrinoid(NULL, n + 'A');
-				get_matrix(tab[n]->mat, fd, c);
-				if ((!is_tetrinoid(tab[n]->mat)) || c == '\n' || (n > 0 && !tab[n - 1]))
-				{
-        			
-         			free_matrix(tab);printf("map error\n");
-          //if (tab)
-				free(tab);
-          return (NULL);
-				}
-				reset_item(4, tab[n]->mat, 1);
-				n++;
-			}
-		}
+			build_tetrinoid(fd, tab);
 		else
-			printf("file error\n");
+			ft_putendl_fd("file error", 2);
 		close(fd);
 		argv++;
 	}
-	tab[n] = NULL;
 	return (tab);
 }
 
-void		free_matrix(t_tetrinoid **tab)
+void				free_matrix(t_tetrinoid **tab)
 {
 	unsigned int	n;
 
 	n = 0;
 	while (tab[n])
 	{
-    	if (tab[n])
-		  free(tab[n]);
+		if (tab[n])
+			free(tab[n]);
 		n++;
 	}
 }

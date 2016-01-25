@@ -15,10 +15,9 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <unistd.h>
-# include <stdio.h>
-# include "../libft/libft.h"
+# include "lib/libft/libft.h"
 # define MAX_TETRINOID 26
-# define MAX 10000000
+# define MAX 1000000
 
 typedef unsigned int	t_octet;
 typedef struct			s_tetrinoid
@@ -40,17 +39,20 @@ typedef	struct			s_solverstate
 
 }						t_solverstate;
 
-int             is_tetrinoid(unsigned int* mat);
+int						is_tetrinoid(unsigned int *mat);
 t_solution				*init_solution(t_octet size);
 t_tetrinoid				*init_tetrinoid(t_octet *mat, char c);
 void					free_tetrinoid(t_tetrinoid *t);
 t_octet					*init_item(t_octet *buffer, t_octet size);
-void					build_solution(t_octet size, t_solution *s, t_tetrinoid *item);
-void					leave_solution(t_octet size, t_solution *s, t_tetrinoid *item);
+void					build_solution(t_octet size, t_solution *s,
+							t_tetrinoid *item);
+void					leave_solution(t_octet size, t_solution *s,
+							t_tetrinoid *item);
 void					print_solution(t_solution *s);
 t_octet					*move_left(t_octet *item, t_octet size);
 t_octet					*move_down(t_octet *ref, t_octet *item, t_octet size);
-int						move_item(t_octet *ref, t_octet size, t_octet *tmp, int bool);
+int						move_item(t_octet *ref, t_octet size, t_octet *tmp,
+							int bool);
 t_octet					*reset_item(t_octet size, t_octet *item, int flag);
 t_octet					bits_fort(t_octet value, t_octet n);
 int						solution(t_octet size, t_octet *ref, t_solution **s);
@@ -58,9 +60,10 @@ t_octet					*concat(t_octet *ref, t_octet *item, t_octet size);
 t_octet					*reset(t_octet *ref, t_octet *item, t_octet size);
 int						verification(t_octet *ref, t_octet *item, t_octet size);
 void					print_tab(t_octet *tab, t_octet size, char c);
-void					print(const char *str, ...);
-int						v3(t_tetrinoid **mat, int bool, t_octet *ref, t_solution *s);
-int						v4(t_tetrinoid **mat, t_octet *item, t_octet *ref, t_solution *s);
+int						v3(t_tetrinoid **mat, int bool, t_octet *ref,
+								t_solution *s);
+int						v4(t_tetrinoid **mat, t_octet *item, t_octet *ref,
+							t_solution *s);
 void					free_matrix(t_tetrinoid **tab);
 t_tetrinoid				**init_fillit(char **argv);
 

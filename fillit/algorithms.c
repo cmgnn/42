@@ -24,40 +24,40 @@ t_octet			bits_faible(t_octet value, t_octet n)
 	return ((1 << n) & value) ? (n) : bits_faible(value, n + 1);
 }
 
+t_octet			get_dim(t_octet *len, t_octet *ref, t_octet size)
+{
+	unsigned int	m;
+	unsigned int	tmp;
+
+	m = 0;
+	while (*len < size)
+	{
+		tmp = bits_fort(ref[*len], size) + 1;
+		if (m < tmp)
+			m = tmp;
+		(*len)++;
+	}
+	return (m);
+}
+
 int				solution(t_octet size, t_octet *ref, t_solution **s)
 {
 	unsigned int	i;
-	unsigned int	d_xm;
 	unsigned int	d_ym;
-	unsigned int	d_xM;
-	unsigned int	d_yM;
+	unsigned int	d_xmax;
 
 	i = 0;
-	d_xM = 0;
 	if (ref[size])
-		return 0;
+		return (0);
 	while (i < size && !(ref[i]))
 		i++;
 	d_ym = i;
-	while (i < size)
-	{
-		d_xm = bits_fort(ref[i], size) + 1;
-		if (d_xM < d_xm)
-			d_xM = d_xm;
-		/*if (ref[i])
-			d_yM = bits_faible(ref[i], 0);print("b\n");
-		if (d_yM < d_xm)
-			d_yM = d_xm;*/
-		i++;
-	}
-	while (i > 0 && !ref[i-1])
+	d_xmax = get_dim(&i, ref, size);
+	while (i > 0 && !ref[i - 1])
 		i--;
-	d_xm = 0;//d_yM;
-	d_yM = i;
-	//print("%d,%d,   %d,%d,  (%d)\n", d_xM , d_xm, d_yM , d_ym, size);
-	if (d_xM - d_xm < (*s)->size && d_yM - d_ym < (*s)->size)
+	if (d_xmax < (*s)->size && i - d_ym < (*s)->size)
 	{
-		(*s)->size = (((d_xM - d_xm  < d_yM - d_ym) ? (d_yM - d_ym) : (d_xM - d_xm)));
+		(*s)->size = (((d_xmax < i - d_ym) ? (i - d_ym) : (d_xmax)));
 		return ((int)size);
 	}
 	return (-1);

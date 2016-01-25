@@ -19,7 +19,7 @@ t_solution	*init_solution(unsigned int size)
 	if ((s = (t_solution*)malloc(sizeof(t_solution))) != NULL)
 	{
 		s->size = size;
-		ft_memset(s->buffer, '.', 10000000);
+		ft_memset(s->buffer, '.', MAX);
 	}
 	return (s);
 }
@@ -39,34 +39,33 @@ t_tetrinoid	*init_tetrinoid(unsigned int *mat, char c)
 
 void		free_tetrinoid(t_tetrinoid *t)
 {
-  if (t)
-  {
-	  //free_matrix(t->mat);
-	  free(t);
-  }
+	if (t)
+	{
+		free(t);
+	}
 }
 
-int   is_tetrinoid(unsigned int *mat)
+int			is_tetrinoid(unsigned int *mat)
 {
-  unsigned int  i;
-  unsigned int  j;
-  unsigned int  compt;
- 
-  compt = 0;
-  i = 0;
-  while (i < 4)
-  {
-    j = 0;
-    while (j < 4)
-    {
-      if ((mat[i] >> j) & 1 && ((j < 3 && mat[i] >> (j + 1) & 1) || (j > 0 && mat[i] >> (j - 1) & 1) || (i < 4 && mat[i] & mat[i + 1]) || (i > 0 && mat[i] & mat[i - 1])))
-      {
-        compt++;
-      }
-      j++;
-    }
-    i++;
-  }
-  //printf("<%d>\n", compt);
-  return (compt == 4);
+	unsigned int	i;
+	unsigned int	j;
+	unsigned int	compt;
+
+	compt = 0;
+	i = 0;
+	while (i < 4)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			if ((mat[i] >> j) & 1 && ((j < 3 && mat[i] >> (j + 1) & 1) ||
+				(j > 0 && mat[i] >> (j - 1) & 1) ||
+				(i < 4 && mat[i] & mat[i + 1]) ||
+				(i > 0 && mat[i] & mat[i - 1])))
+				compt++;
+			j++;
+		}
+		i++;
+	}
+	return (compt == 4);
 }
