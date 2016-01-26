@@ -15,7 +15,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <unistd.h>
-# include "lib/libft/libft.h"
+# include "/home/r2d2/Documents/42/libft/libft.h"
 # define MAX_TETRINOID 26
 # define MAX 1000000
 

@@ -102,6 +102,8 @@ int				get_next_line(int const fd, char **line)
 {
 	int	size;
 
+	if (fd > 256)
+		ft_printf("Are you serious ???\n");
 	if (fd < 0 || !line)
 		return (-1);
 	size = read_buffer(fd, line);

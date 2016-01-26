@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra
 NAME = fillit
 
-LIBFT = lib/libft
+LIBFT = ~/Documents/42/libft
 SRC = start.c fillit.c solv.c aff.c algorithms.c init.c move_item.c
 INC = head.h
 LIB = 

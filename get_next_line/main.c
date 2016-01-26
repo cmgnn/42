@@ -2,9 +2,9 @@
 
 int	main(int argc, char **argv)
 {
-	char 	line[1024] = {0};
 	int		fd = 0;
-	char *ptr = line;
+	char *ptr = NULL;
+
 	if (argc)
 	{
 		argv++;
@@ -12,16 +12,17 @@ int	main(int argc, char **argv)
 		{
 			fd = open(*argv, O_RDONLY);
 			ft_putendl(*argv);
-
 			while (get_next_line(fd, &ptr) > 0)
 			{
 				ft_putstr("(out)");
-				ft_putendl(line);
+				ft_putendl(ptr);
+				free(ptr);
+				ptr = NULL;
 			}
 			close(fd);
 			argv++;
 		}
 	}
-	//free(line);
+	free(ptr);
 	return (0);
 }

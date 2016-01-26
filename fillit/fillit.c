@@ -56,9 +56,7 @@ t_tetrinoid			**build_tetrinoid(const int fd, t_tetrinoid **tab)
 		if ((!is_tetrinoid(tab[n]->mat)) || c == '\n' ||
 			(n > 0 && !tab[n - 1]))
 		{
-			free_matrix(tab);
 			ft_putendl_fd("map error", 2);
-			free(tab);
 			return (NULL);
 		}
 		reset_item(4, tab[n]->mat, 1);
@@ -71,16 +69,17 @@ t_tetrinoid			**build_tetrinoid(const int fd, t_tetrinoid **tab)
 t_tetrinoid			**init_fillit(char **argv)
 {
 	int				fd;
-	char			c;
 	t_tetrinoid		**tab;
 
-	c = 1;
 	tab = (t_tetrinoid **)malloc(sizeof(t_tetrinoid*) * 26);
 	while (*argv)
 	{
 		fd = open(*argv, O_RDONLY);
 		if (fd >= 0)
-			build_tetrinoid(fd, tab);
+		{
+			if (!build_tetrinoid(fd, tab))
+				return (NULL);
+		}
 		else
 			ft_putendl_fd("file error", 2);
 		close(fd);
